@@ -25,6 +25,7 @@ const HomePage = () => {
         fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
         p={3}
         color="blue.600"
+        fontWeight="medium"
       >
         Chatify
       </Text>
