@@ -45,7 +45,13 @@ const Login = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <Button bg="blue.600" color="white" w="100%" onClick={submitHandler}>
+      <Button
+        bg="blue.600"
+        color="white"
+        w="100%"
+        _hover={{ bg: "blue.700" }}
+        onClick={submitHandler}
+      >
         Login
       </Button>
     </VStack>

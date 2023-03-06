@@ -18,8 +18,23 @@ const Register = () => {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [photo, setPhoto] = useState();
+  const [loading, setLoading] = useState(false);
 
   const submitHandler = () => {};
+
+  const myWidget = window.cloudinary.createUploadWidget(
+    {
+      cloudName: import.meta.env.VITE_CLOUDNAME,
+      uploadPreset: import.meta.env.VITE_UPLOADPRESET,
+      cropping: true,
+      clientAllowedFormats: ["jpg", "jpeg", "png"],
+    },
+    (error, result) => {
+      if (!error && result && result.event === "success") {
+        setPhoto(result.info.secure_url);
+      }
+    }
+  );
 
   return (
     <VStack>
@@ -75,9 +90,25 @@ const Register = () => {
       </FormControl>
       <FormControl>
         <FormLabel>Profile Picture</FormLabel>
-        <Input type="file" onChange={(e) => setPhoto(e.target.files[0])} />
+        <Button
+          bg="blue.600"
+          variant="solid"
+          _hover={{ bg: "blue.700" }}
+          color="white"
+          onClick={() => myWidget.open()}
+          w="100%"
+        >
+          Upload
+        </Button>
       </FormControl>
-      <Button bg="blue.600" color="white" w="100%" onClick={submitHandler}>
+      <img src={photo} style={{ width: "auto", height: "200px" }} />
+      <Button
+        bg="blue.600"
+        color="white"
+        _hover={{ bg: "blue.700" }}
+        w="100%"
+        onClick={submitHandler}
+      >
         Register
       </Button>
     </VStack>
