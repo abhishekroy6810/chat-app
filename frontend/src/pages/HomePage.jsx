@@ -1,10 +1,48 @@
 import React from "react";
+import {
+  Container,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
+import { Login, Register } from "../components/index";
 
 const HomePage = () => {
   return (
-    <div>
-      <p>HomePage</p>
-    </div>
+    <Container
+      centerContent
+      mt="40px"
+      p="5px"
+      maxW={{ base: "sm", md: "md", lg: "lg" }}
+      borderRadius="lg"
+      boxShadow="lg"
+      borderWidth="3px"
+    >
+      <Text
+        fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
+        p={3}
+        color="blue.600"
+      >
+        Chatify
+      </Text>
+      <Tabs isFitted w="100%">
+        <TabList>
+          <Tab>Login</Tab>
+          <Tab>Register</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Login />
+          </TabPanel>
+          <TabPanel>
+            <Register />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </Container>
   );
 };
 
