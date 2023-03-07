@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import {
+  Avatar,
+  AvatarBadge,
+  Badge,
+  Box,
   Button,
   FormControl,
   FormLabel,
@@ -38,6 +42,14 @@ const Register = () => {
 
   return (
     <VStack>
+      <Box>
+        <Avatar
+          src={photo}
+          size="2xl"
+          onClick={() => myWidget.open()}
+          cursor="pointer"
+        />
+      </Box>
       <FormControl>
         <FormLabel>Name</FormLabel>
         <Input
@@ -88,20 +100,6 @@ const Register = () => {
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl>
-        <FormLabel>Profile Picture</FormLabel>
-        <Button
-          bg="blue.600"
-          variant="solid"
-          _hover={{ bg: "blue.700" }}
-          color="white"
-          onClick={() => myWidget.open()}
-          w="100%"
-        >
-          Upload
-        </Button>
-      </FormControl>
-      <img src={photo} style={{ width: "auto", height: "200px" }} />
       <Button
         bg="blue.600"
         color="white"
