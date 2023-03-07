@@ -6,17 +6,71 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  const submitHandler = () => {};
+  const submitHandler = async () => {
+    setLoading(true);
+
+    if (!email || !password) {
+      toast({
+        title: "Please Fill All The Fields",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/user/login",
+        { email, password },
+        {
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      toast({
+        title: "Login Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      toast({
+        title: "Error Occured",
+        status: "error",
+        description: error.response.data,
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+      setLoading(false);
+    }
+  };
 
   return (
     <VStack>
@@ -26,7 +80,7 @@ const Login = () => {
           placeholder="Enter Your Email"
           type="email"
           variant="flushed"
-          onChange={() => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
       <FormControl>
@@ -51,6 +105,7 @@ const Login = () => {
         w="100%"
         _hover={{ bg: "blue.700" }}
         onClick={submitHandler}
+        isLoading={loading}
       >
         Login
       </Button>
