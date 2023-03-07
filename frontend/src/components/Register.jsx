@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
   Avatar,
-  AvatarBadge,
-  Badge,
   Box,
   Button,
   FormControl,
@@ -10,9 +8,12 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [show, setShow] = useState(false);
@@ -23,8 +24,67 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState();
   const [photo, setPhoto] = useState();
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  const submitHandler = () => {};
+  const submitHandler = async () => {
+    setLoading(true);
+
+    if (!name || !email || !password || !confirmPassword) {
+      toast({
+        title: "Please Fill All The Fields",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      setLoading(false);
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast({
+        title: "Password Do Not Match",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const details = { name, email, password, photo };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/user/register",
+        details,
+        {
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      setLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      toast({
+        title: "Error Occured",
+        status: "error",
+        description: error.response.data,
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+
+      setLoading(false);
+    }
+  };
 
   const myWidget = window.cloudinary.createUploadWidget(
     {
@@ -65,7 +125,7 @@ const Register = () => {
           placeholder="Enter Your Email"
           type="email"
           variant="flushed"
-          onChange={() => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
       <FormControl>
@@ -106,6 +166,7 @@ const Register = () => {
         _hover={{ bg: "blue.700" }}
         w="100%"
         onClick={submitHandler}
+        isLoading={loading}
       >
         Register
       </Button>

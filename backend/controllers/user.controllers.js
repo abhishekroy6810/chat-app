@@ -4,15 +4,16 @@ const USER = require("../database/models/user.model");
 const registerUser = expressAsyncHandler(async (req, res) => {
   const { name, email, password, photo } = req.body;
 
-  if (!name || !email || !password) {
-    res.status(400);
-    throw new Error("Enter All Ahe Fields");
-  }
+  // Handled in Forntend
+  // if (!name || !email || !password) {
+  //   res.status(400);
+  //   throw new Error("Enter All Ahe Fields");
+  // }
 
   const isUserExist = await USER.findOne({ email });
 
   if (isUserExist) {
-    res.status(400);
+    res.status(400).json("User Already Exists");
     throw new Error("User Already Exists");
   }
 
@@ -26,7 +27,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       phtoto: user.photo,
     });
   } else {
-    res.status(400);
+    res.status(400).json("User Not Found");
     throw new Error("User Not Found");
   }
 });
@@ -44,7 +45,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
       photo: user.photp,
     });
   } else {
-    res.status(401);
+    res.status(401).json("Invalid Email Or Password");
     throw new Error("Invalid Email Or Password");
   }
 });
