@@ -57,17 +57,22 @@ const Register = () => {
     }
 
     try {
-      const details = { name, email, password, photo };
-
       const { data } = await axios.post(
         "http://localhost:5000/user/register",
-        details,
+        { name, email, password, photo },
         {
           headers: {
             "Content-type": "application/json",
           },
         }
       );
+      toast({
+        title: "Registration Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
