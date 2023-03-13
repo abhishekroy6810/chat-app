@@ -5,11 +5,10 @@ const generateToken = require("../utils/generateToken");
 const registerUser = expressAsyncHandler(async (req, res) => {
   const { name, email, password, photo } = req.body;
 
-  // Handled in Forntend
-  // if (!name || !email || !password) {
-  //   res.status(400);
-  //   throw new Error("Enter All Ahe Fields");
-  // }
+  if (!name || !email || !password) {
+    res.status(400).json("Enter All Ahe Fields");
+    throw new Error("Enter All Ahe Fields");
+  }
 
   const isUserExist = await USER.findOne({ email });
 
@@ -53,4 +52,16 @@ const loginUser = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, loginUser };
+const allUser = expressAsyncHandler(async (req, res) => {
+  const search = req.query.search ? {
+    $or: [
+      { name: { $regex: req.query.search, $options: "i" } },
+      { email: { $regex: req.query.search, $options: "i" } },
+    ],
+  } : {};
+
+  const users = await USER.find(search).find({ _id: { $ne: req.user._id } }).select("-password");
+  res.send(users);
+})
+
+module.exports = { registerUser, loginUser, allUser };
