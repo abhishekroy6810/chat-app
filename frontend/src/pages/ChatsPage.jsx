@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
+import { Header } from "../components/index";
 
 const ChatsPage = () => {
   return (
@@ -20,11 +21,8 @@ const ChatsPage = () => {
         borderWidth="3px"
         p={3}
       >
-        header
-        <Box
-          display="flex"
-          justifyContent="space-between"
-        >
+        <Header />
+        <Box display="flex" justifyContent="space-between">
           <span>my chats</span>
           <span>chat box</span>
         </Box>
