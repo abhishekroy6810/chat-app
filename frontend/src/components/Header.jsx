@@ -19,9 +19,16 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, Search2Icon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("userInfo");
+    navigate("/");
+  };
 
   return (
     <>
@@ -50,7 +57,7 @@ const Header = () => {
           </MenuButton>
           <MenuList>
             <MenuItem>My Profile</MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={logoutHandler}>Logout</MenuItem>
           </MenuList>
         </Menu>
       </Box>
