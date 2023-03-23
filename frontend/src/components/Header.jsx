@@ -32,7 +32,7 @@ const Header = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const toast = useToast();
-  const { user } = ChatState();
+  const { user, chats, setChats, setSelectedChat } = ChatState();
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
@@ -70,6 +70,34 @@ const Header = () => {
       toast({
         title: "Error Occured!",
         description: "Failed to Load The Search Results",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  };
+
+  const accessChat = async (userId) => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.post(
+        `http://localhost:5000/chat/access`,
+        { userId },
+        config
+      );
+
+      setSelectedChat(data);
+      onClose();
+    } catch (error) {
+      toast({
+        title: "Error fetching the chat",
+        description: error.message,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -134,7 +162,13 @@ const Header = () => {
               <SkeletonAnim />
             ) : (
               searchResult.map((user) => {
-                return <UserList key={user._id} user={user} />;
+                return (
+                  <UserList
+                    key={user._id}
+                    user={user}
+                    handleFunc={() => accessChat(user._id)}
+                  />
+                );
               })
             )}
           </DrawerBody>
