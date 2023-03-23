@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, Search2Icon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
-import { SkeletonAnim, UserList } from "./index";
+import { ProfileModal, SkeletonAnim, UserList } from "./index";
 import axios from "axios";
 import { ChatState } from "../context/ChatProvider";
 
@@ -109,7 +109,9 @@ const Header = () => {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem>My Profile</MenuItem>
+            <MenuItem>
+              <ProfileModal user={user} />
+            </MenuItem>
             <MenuItem onClick={logoutHandler}>Logout</MenuItem>
           </MenuList>
         </Menu>
