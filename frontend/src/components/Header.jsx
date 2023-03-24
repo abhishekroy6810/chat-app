@@ -108,7 +108,12 @@ const Header = () => {
 
   return (
     <>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        h="8%"
+      >
         <Button
           bg="blue.600"
           _hover={{ bg: "blue.700" }}

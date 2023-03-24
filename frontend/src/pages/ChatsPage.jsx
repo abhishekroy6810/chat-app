@@ -1,10 +1,11 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
-import { Header } from "../components/index";
+import React, { useState } from "react";
+import { Chatbox, Header, MyChats } from "../components/index";
 import { ChatState } from "../context/ChatProvider";
 
 const ChatsPage = () => {
   const { user } = ChatState();
+  const [fetchAgain, setFetchAgain] = useState(false);
 
   return (
     <Box
@@ -13,7 +14,6 @@ const ChatsPage = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      bg="black"
     >
       <Box
         width={{ base: "100%", md: "95%" }}
@@ -25,9 +25,11 @@ const ChatsPage = () => {
         p={3}
       >
         {user && <Header />}
-        <Box display="flex" justifyContent="space-between">
-          <span>my chats</span>
-          <span>chat box</span>
+        <Box display="flex" justifyContent="space-between" mt={3} h="90%">
+          {user && <MyChats fetchAgain={fetchAgain} />}
+          {user && (
+            <Chatbox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+          )}
         </Box>
       </Box>
     </Box>
