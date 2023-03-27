@@ -8,5 +8,7 @@ import MyChats from "./MyChats";
 import Chatbox from "./ChatBox";
 import GroupModal from "./GroupModal";
 import UserBadge from "./UserBadge";
+import Chats from "./Chats";
+import UpdateGroupChatModal from "./UpdateGroupChatModal";
 
-export { Login, Register, Header, SkeletonAnim, UserList, ProfileModal, MyChats, Chatbox, GroupModal, UserBadge };
+export { Login, Register, Header, SkeletonAnim, UserList, ProfileModal, MyChats, Chatbox, GroupModal, UserBadge, Chats, UpdateGroupChatModal };

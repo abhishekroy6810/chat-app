@@ -142,9 +142,9 @@ const Header = () => {
             />
           </MenuButton>
           <MenuList>
-            <MenuItem>
-              <ProfileModal user={user} />
-            </MenuItem>
+            <ProfileModal user={user}>
+              <MenuItem>My Profile</MenuItem>{" "}
+            </ProfileModal>
             <MenuItem onClick={logoutHandler}>Logout</MenuItem>
           </MenuList>
         </Menu>

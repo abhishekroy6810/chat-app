@@ -1,10 +1,13 @@
+import { ViewIcon } from "@chakra-ui/icons";
 import {
-  Avatar,
-  Box,
+  Button,
+  IconButton,
+  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Text,
@@ -12,30 +15,45 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const ProfileModal = ({ user }) => {
+const ProfileModal = ({ user, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Box onClick={onOpen} w="100%">
-        Profile
-      </Box>
-
-      <Modal isOpen={isOpen} onClose={onClose} size={{ base: "sm", md: "md" }}>
+      {children ? (
+        <span onClick={onOpen}>{children}</span>
+      ) : (
+        <IconButton
+          display={{ base: "flex" }}
+          icon={<ViewIcon />}
+          onClick={onOpen}
+        />
+      )}
+      <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>My Profile</ModalHeader>
-          <ModalCloseButton />
+        <ModalContent h="410px">
+          <ModalHeader fontSize="40px" display="flex" justifyContent="center">
+            {user.name}
+          </ModalHeader>
           <ModalBody
             display="flex"
             flexDir="column"
             alignItems="center"
             justifyContent="space-between"
           >
-            <Avatar src={user.photo} size="2xl" p={2} />
-            <Text fontSize={{ base: "20px", md: "25px" }}>{user.name}</Text>
-            <Text fontSize={{ base: "28px", md: "30px" }}>{user.email}</Text>
+            <Image
+              borderRadius="full"
+              boxSize="150px"
+              src={user.photo}
+              alt={user.name}
+            />
+            <Text fontSize={{ base: "28px", md: "30px" }}>
+              Email: {user.email}
+            </Text>
           </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
