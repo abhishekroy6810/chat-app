@@ -3,7 +3,7 @@ import { Box, Button, Stack, Text, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ChatState } from "../context/ChatProvider";
-import { SkeletonAnim } from "./index";
+import { GroupModal, SkeletonAnim } from "./index";
 import { getSender } from "../chatLogic/chatLogic";
 
 const MyChats = ({ fetchAgain }) => {
@@ -57,9 +57,11 @@ const MyChats = ({ fetchAgain }) => {
         fontSize={{ base: "18px", md: "20px", lg: "25px" }}
       >
         <Text>My Chats</Text>
-        <Button rightIcon={<AddIcon />} size={{ base: "sm", lg: "md" }}>
-          New Group Chat
-        </Button>
+        <GroupModal>
+          <Button rightIcon={<AddIcon />} size={{ base: "sm", lg: "md" }}>
+            New Group Chat
+          </Button>
+        </GroupModal>
       </Box>
 
       <Box
