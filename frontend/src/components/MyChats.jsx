@@ -43,7 +43,7 @@ const MyChats = ({ fetchAgain }) => {
 
   return (
     <Box
-      display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+      display={{ base: selectedChat ? "none" : "flex", lg: "flex" }}
       flexDir="column"
       w={{ base: "100%", lg: "30%" }}
       borderRadius="lg"

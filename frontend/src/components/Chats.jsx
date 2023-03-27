@@ -14,30 +14,30 @@ const Chats = ({ fetchAgain, setFetchAgain }) => {
         <>
           <Box
             display="flex"
-            justifyContent="center"
+            justifyContent="space-between"
             alignItems="center"
-            fontSize={{ base: "28px", md: "30px" }}
+            fontSize={{ base: "18px", md: "25px" }}
             w="100%"
           >
             <IconButton
-              display={{ base: "flex", md: "none" }}
+              display={{ base: "flex", lg: "none" }}
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
             />
 
             {selectedChat.isGroupChat ? (
-              <Box display="flex" justifyContent="space-between" w="100%">
+              <>
                 {selectedChat.chatName.toUpperCase()}
                 <UpdateGroupChatModal
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
                 />
-              </Box>
+              </>
             ) : (
-              <Box display="flex" justifyContent="space-between" w="100%">
+              <>
                 {getSender(user, selectedChat.users)}
                 <ProfileModal user={getSenderFull(user, selectedChat.users)} />
-              </Box>
+              </>
             )}
           </Box>
         </>

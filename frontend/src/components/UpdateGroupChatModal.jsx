@@ -210,7 +210,12 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }) => {
         onClick={onOpen}
       />
 
-      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+      <Modal
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+        size={{ base: "sm", md: "lg" }}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader fontSize="35px" display="flex" justifyContent="center">
