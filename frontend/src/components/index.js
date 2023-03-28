@@ -10,5 +10,6 @@ import GroupModal from "./GroupModal";
 import UserBadge from "./UserBadge";
 import Chats from "./Chats";
 import UpdateGroupChatModal from "./UpdateGroupChatModal";
+import ScrollableChat from "./ScrollableChat"
 
-export { Login, Register, Header, SkeletonAnim, UserList, ProfileModal, MyChats, Chatbox, GroupModal, UserBadge, Chats, UpdateGroupChatModal };
+export { Login, Register, Header, SkeletonAnim, UserList, ProfileModal, MyChats, Chatbox, GroupModal, UserBadge, Chats, UpdateGroupChatModal, ScrollableChat };
