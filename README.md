@@ -40,4 +40,4 @@ Uses Socket.io for real time communication and stores user details in encrypted 
 
 ## Made By
 
-- [@abhishekroy789](https://github.com/abhishekroy789)
+- [@abhishekroy6810](https://github.com/abhishekroy6810)
